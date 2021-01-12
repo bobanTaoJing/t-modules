@@ -1,0 +1,66 @@
+<template>
+    <div>
+        <vsNode ref="vsnode" :sourceTable="sourceTable" :targetTable="targetTable" :lines="lines"></vsNode>
+        <i-button @click="save">保存</i-button>
+    </div>
+</template>
+<script>
+import vsNode from './vueTaskNode/index'
+export default {
+    components:{vsNode},
+
+    data(){
+        return{
+            sourceTable:{
+                columns:[{
+                        name:'源表字段',
+                        key:'name',
+                        width:120,
+                    },{
+                        name:'类型',
+                        key:'type',
+                        width:80
+                    }
+                ],
+                data:[
+                    {name:'uid',type:'BIGINT'},
+                    {name:'uname',type:'STRING'},
+                    {name:'upass',type:'STRING'},
+                    {name:'width',type:'STRING'},
+                    {name:'height',type:'STRING'},
+                ]
+            },
+            targetTable:{
+                columns:[{
+                        name:'目标表字段',
+                        key:'name',
+                        width:120,
+                    },{
+                        name:'类型',
+                        key:'type',
+                        width:80
+                    }
+                ],
+                data:[
+                    {name:'uid',type:'BIGINT'},
+                    {name:'pid',type:'STRING'},
+                    {name:'upass',type:'STRING'},
+                    {name:'adre',type:'STRING'},
+                    {name:'uname',type:'STRING'},
+                ]
+            },
+            lines:[]
+        }
+    },
+    mounted(){
+        console.log(this.$store)
+    },
+    methods:{
+        save(){
+            this.$refs.vsnode.submit(params=>{
+                console.log(params)
+            })
+        }
+    }
+}
+</script>
