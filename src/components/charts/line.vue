@@ -47,6 +47,16 @@ export default {
             type: Boolean,
             default: false
         },
+        theme:{
+            type:String,
+            default:'default'
+        },
+        colorArray: {
+            type: Array,
+            default: function () {
+                return []
+            }
+        },
     },
     data() {
         return {
@@ -114,12 +124,13 @@ export default {
                 if (this.value.length > 0) {
                     xData = Object.keys(this.value[0].data)
                 }
-                for (let a of this.value) {
+                for (let i=0;i<this.value.length;i++) {
+                    let a = this.value[i]
                     series.push({
                         name: a.name,
                         type: 'line',
                         itemStyle:{
-                            color: a.color ? a.color : '#baf1a1',
+                            color: this.colorArray[i] ? this.colorArray[i] : '',
                         },
                         data: Object.values(a.data),
                     })
@@ -199,7 +210,7 @@ export default {
                         type: 'slider'
                     }]
             }
-            this.$refs.base.init()
+            this.$refs.base.init(this.theme)
         }
     },
     watch: {
@@ -208,6 +219,9 @@ export default {
                 this.init()
             },
             deep: true
+        },
+        theme(){
+            this.init()
         }
     },
     components: {

@@ -7,7 +7,7 @@
     </div>
     <div style="width:calc(100% - 200px);float:left;height:100vh">
       <template v-for="(item,index) in allcomNames">
-        <component :is="item" v-show="show==item" :key="index"></component>
+        <component :is="item" v-if="show==item" :key="index"></component>
       </template>
     </div>
   </div>
@@ -44,6 +44,7 @@ export default {
   margin-top: 60px; */
   height:100vh;
   box-sizing: border-box;
+  min-width:1080px;
   /* background: #ddd; */
 }
 body{

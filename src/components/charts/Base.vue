@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import echarts from 'echarts/lib/echarts'
+import * as echarts from 'echarts/lib/echarts'
 
 import 'echarts/lib/chart/bar'
 import 'echarts/lib/chart/line'
@@ -83,7 +83,7 @@ export default {
         resize() {
             this.dom.resize()
         },
-        init() {
+        init(theme) {
             this.fcolor1 = this.getColor()[0]
             this.fcolor2 = this.getColor()[1]
             this.$nextTick(() => {
@@ -104,7 +104,10 @@ export default {
                 //             }
                 //         }
                 //     }
-                this.dom = echarts.init(this.$refs.dom)
+                if(this.dom){
+                    this.dom.dispose()
+                }
+                this.dom = echarts.init(this.$refs.dom,theme?theme:'default')
                 this.dom.setOption(option)
                 this.resize()
                 off(window, 'resize', this.resize)

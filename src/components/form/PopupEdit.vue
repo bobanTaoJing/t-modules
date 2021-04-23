@@ -10,8 +10,8 @@
   }
 
   .popup-edit-modal .ivu-modal-body {
-    max-height: calc(100vh - 200px);
-    overflow: auto;
+    /* max-height: calc(100vh - 200px);
+    overflow: auto; */
   }
 
   .popup-edit-modal .ivu-modal-mask {

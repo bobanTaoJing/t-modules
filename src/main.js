@@ -6,6 +6,8 @@ import store from "./store/index";
 import VueHighlightJS from 'vue-highlightjs'
 import 'highlight.js/styles/a11y-light.css'
 
+import './theme/index.less'
+
 import { Button,Select,Option,Cell, Table,Form,FormItem,Row,Col,
   Icon,Poptip,Checkbox,CheckboxGroup,Input,Page,Modal,Dropdown,DropdownMenu,Tree,Switch,
   Tabs,TabPane,Split,TimePicker,InputNumber,DatePicker,Radio,RadioGroup,Card,Upload

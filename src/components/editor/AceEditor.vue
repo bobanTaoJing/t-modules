@@ -27,7 +27,7 @@
         </p>
         <editor v-model="content"
         ref="editor"
-         @init="editorInit" :lang="language" theme="chrome" style="height:calc(100% - 24px)"
+         @init="editorInit" :lang="language" theme="chrome" :style="showAction?'height:calc(100% - 24px)':'100%'"
          :readOnly="readOnly"
          :options="{
             enableBasicAutocompletion: true,

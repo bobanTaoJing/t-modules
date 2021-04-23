@@ -12,10 +12,18 @@ export default {
             type:Boolean,
             default:false
         },
-        value: Object,
+        value: Array,
         text: {
             type: String,
             default: null
+        },
+        textColor:{
+            type:String,
+            default:'rgb(92, 107, 119)'
+        },
+        bgColor:{
+            type:String,
+            default:'transparent'
         },
         subtext: String,
         height: {
@@ -39,7 +47,17 @@ export default {
         title: {
             type: String,
             default: null
-        }
+        },
+        theme:{
+            type:String,
+            default:'default'
+        },
+        colorArray: {
+            type: Array,
+            default: function () {
+                return []
+            }
+        },
     },
     data() {
         return {
@@ -131,18 +149,27 @@ export default {
                 }
                 let that = this
                 this.option = {
+                    backgroundColor:this.bgColor,
                     title: {
                         // show:!!this.title,
-                        text: this.title,
-                        x: 'left',
-                        textStyle: {
-                            color: 'rgb(92, 107, 119)',
-                            fontSize: 20
+                        text: this.text,
+                        subtext: this.subtext,
+                        x: 'center',
+                        textStyle:{
+                            color:this.textColor,
+                            fontSize:20
                         }
                     },
                     tooltip: {
                         trigger: 'item',
                         formatter: '{b} : {c} ({d}%)'
+                    },
+                     grid:{
+                        left: '3%',
+                        right: '4%',
+                        bottom: 6,
+                        top:50,
+                        containLabel: true
                     },
                     legend: {
                         orient: 'vertical',
@@ -152,7 +179,7 @@ export default {
                     },
                     series: [{
                         type: 'pie',
-                        radius: ['50%','90%'],
+                        radius: ['50%','80%'],
                         center: ['50%', '50%'],
                         data: value,
                         itemStyle:{
@@ -194,7 +221,7 @@ export default {
                     }]
                 }
             }
-            this.$refs.base.init()
+            this.$refs.base.init(this.theme)
         }
     },
     watch: {

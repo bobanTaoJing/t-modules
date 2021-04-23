@@ -44,7 +44,7 @@ export default {
         colorArray: {
             type: Array,
             default: function () {
-                return ['#7172AD']
+                return []
             }
         },
         disHover: {
@@ -54,6 +54,26 @@ export default {
         showLabel: {
             type: Boolean,
             default: true
+        },
+        theme:{
+            type:String,
+            default:'default'
+        },
+        xAxisColor:{
+            type:String,
+            default:''
+        },
+        xAxisSplitColor:{
+            type:String,
+            default:''
+        },
+        yAxisColor:{
+            type:String,
+            default:''
+        },
+        yAxisSplitColor:{
+            type:String,
+            default:'#DDD'
         }
     },
     data() {
@@ -133,12 +153,13 @@ export default {
                 if (this.value.length > 0) {
                     xData = Object.keys(this.value[0].data)
                 }
-                for (let a of this.value) {
+                for (let i=0;i< this.value.length;i++) {
+                    let a = this.value[i]
                     series.push({
                         name: a.name,
                         type: 'bar',
                         itemStyle:{
-                            color: a.color ? a.color : '#baf1a1',
+                            color: this.colorArray[i] ? this.colorArray[i] : '',
                         },
                         data: Object.values(a.data),
                     })
@@ -199,21 +220,38 @@ export default {
                         // icon: 'circle',
                         itemWidth: 10,
                         itemHeight: 10,
-                        // textStyle:{
-                        //     color:'#1bb4f6'
-                        // },
+                        textStyle:{
+                            color:this.textColor
+                        },
                     },
                     xAxis: {
                         type: 'category',
-                        data: xData
+                        data: xData,
+                        axisLabel:{
+                            color:this.xAxisColor
+                        },
+                        splitLine:{
+                            lineStyle:{
+                                color:this.xAxisSplitColor
+                            }
+                        }
                     },
                     yAxis: {
-                        type: 'value'
+                        type: 'value',
+                        axisLabel:{
+                            color:this.yAxisColor
+                        },
+                        splitLine:{
+                            lineStyle:{
+                                color:this.yAxisSplitColor
+                            }
+                        }
                     },
                     series
                 }
+                console.log(this.option)
             }
-            this.$refs.sBase.init()
+            this.$refs.sBase.init(this.theme)
         }
     },
     watch: {
@@ -222,6 +260,9 @@ export default {
                 this.init()
             },
             deep: true
+        },
+        theme(){
+            this.init()
         }
     },
     components: {

@@ -48,15 +48,15 @@ export {default as NumberTo} from './count/NumberTo.vue';
 
 export {default as NumberUp} from './count/NumberUp.vue';
 
-export {default as ChartPie} from './charts/pie.vue';
+// export {default as ChartPie} from './charts/pie.vue';
 
 // export {default as ChartPie2} from './charts/pie2.vue';
 
 // export {default as ChartPie3} from './charts/pie3.vue';
 
-export {default as ChartBar} from './charts/bar.vue';
+// export {default as ChartBar} from './charts/bar.vue';
 
-export {default as ChartLine} from './charts/line.vue';
+// export {default as ChartLine} from './charts/line.vue';
 
 // export {default as ChartDoubleLine} from './charts/doubleLine.vue';
 

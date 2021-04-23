@@ -172,10 +172,14 @@
                                 :showAction="false"
                                 :language="item.language?item.language:'mysql'"/>
                         </template>
-                        <!-- 文本编辑器2 -->
-                        <template v-else-if="item.type==='VueQuillEditor'">
-                            <VueQuillEditor v-model="fromData[item.name]"/>
+                        <!--cron生成器-->
+                        <template v-else-if="item.type==='cron'">
+                            <easyCron v-model="fromData[item.name]" />
                         </template>
+                        <!-- 文本编辑器2 -->
+                        <!-- <template v-else-if="item.type==='VueQuillEditor'">
+                            <VueQuillEditor v-model="fromData[item.name]"/>
+                        </template> -->
 
                         <template v-else>
                             {{item.type}}未匹配到对应的组件
@@ -187,6 +191,9 @@
                     </div>
                 </FormItem>
             </template>
+            <slot v-if="rowIndex==appendIndex[0]&&index==appendIndex[1]" name="appendIndex">
+
+            </slot>
         </i-col>
 
         <slot v-if="rowIndex==data.length-1" name="append">
@@ -208,6 +215,7 @@ import {
 } from '../../components/index';
 // import MonacoEditor from '../editor/MonacoEditor'
 import AceEditor from '../editor/AceEditor.vue'
+import easyCron from '../../../self_node_modules/vue-easy-cron/src/lib/easy-cron/input-cron'//cron生成器
 import VueQuillEditor from '../editor/vue-quill-editor'
 
 export default {
@@ -229,7 +237,13 @@ export default {
         },
         colHeight: {},
         paddingRight: {},
-        headers:{}
+        headers:{},
+        appendIndex:{
+            type:[Array],
+            default:function(){
+                return []
+            }
+        }
     },
     data() {
         return {
@@ -598,7 +612,7 @@ export default {
         TreeSelect,
         DataSelect,
         ImgUpload,
-        FormEditor,AceEditor,VueQuillEditor
+        FormEditor,AceEditor,VueQuillEditor,easyCron
     }
 };
 </script>
