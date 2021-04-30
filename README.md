@@ -1,24 +1,18 @@
 # t-modules
 
-## Project setup
+## install
 ```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
+cnpm install t-modules
 ```
 
-### Compiles and minifies for production
+### main.js中配置
 ```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
+import tModules from 't-modules'
+Vue.use(tModules)
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 查看组件
+```
+http://47.114.51.103/t-modules/
+```
+
