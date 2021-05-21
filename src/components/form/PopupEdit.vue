@@ -138,7 +138,7 @@
           // 发送请求
           if (this.postUrl !== null) {
             this.loading = true;
-            this.$http.apiPost(this.postUrl, param).then((res) => {
+            this.$http.apiPost(this.postUrl, param,{headers:this.headers}).then((res) => {
               this.loading = false;
               if (!res.success) {
                 this.$http.handleError(res);

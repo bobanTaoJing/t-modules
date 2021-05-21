@@ -19,16 +19,19 @@
 import G6 from "@antv/g6/build/g6";
 import {
     initBehavors
-} from "@/components/g6-editor/behavior";
+} from "../../../../components/g6-editor/behavior";
 import config from '../../global'
 export default {
     data() {
         return {
-            pageId: "graph-container",
             graph: null
         };
     },
     props: {
+        pageId:{
+            type:String,
+            default:'graph-container'
+        },
         height: {
             type: Number,
             default: 0
@@ -40,10 +43,26 @@ export default {
         data: {
             type: Object,
             default: () => {}
-        }
+        },
+        runTime:{
+            type:Boolean,
+            default:false
+        },
+        onlyRead:{
+            type:Boolean,
+            default:false
+        },
+        ip:{},
+        headers:{}
     },
     created() {
-        initBehavors();
+        initBehavors({
+            ip:this.ip,
+            headers:this.headers
+        });
+         var obj = {a:1}
+         var obj2 = {...obj}
+         console.log(this.data)
     },
     mounted() {
         // this.$nextTick(() => {
@@ -51,15 +70,11 @@ export default {
         // });
     },
     methods: {
-        init(editor,command) {
-            const height = this.height - 42
-            const width = this.width - 400
-
-            this.graph = new G6.Graph({
-                container: "graph-container",
-                height: height,
-                width: width,
-                modes: {
+        init(editor,command,twidth) {
+            let height = this.height - 42
+            if(this.runTime) height = height/2
+            const width = (twidth?twidth:this.width) - (this.runTime?0:200)
+            let modes = {
                     // 支持的 behavior
                     default: [
                         "drag-canvas",
@@ -70,33 +85,23 @@ export default {
                         "keyboard",
                         "customer-events",
                         "add-menu",
-                        'drag-node',
-                        // {
-                        //     type: 'tooltip',
-                        //     formatText: function formatText(model) {
-                        //     const text = 'description: ' + model.description;
-                        //     return text;
-                        //     },
-                        //     offset: 30
-                        // },
-                        // {
-                        //     type: 'edge-tooltip',
-                        //     formatText: function formatText(model) {
-                        //     const text = 'description: ' + model.description;
-                        //     return text;
-                        //     },
-                        //     offset: 30
-                        // },
+                        // 'drag-node',
                     ],
                     mulitSelect: ["mulit-select"],
                     addEdge: ["add-edge"],
-                    moveNode: ["drag-item"]
-                },
+                    moveNode:[ "drag-item"]
+                }
+            if(this.runTime) delete modes.addEdge
+            this.graph = new G6.Graph({
+                container: this.pageId,
+                height: height,
+                width: width,
+                modes,
                 defaultEdge: {
-                  type: 'line',
-                  style: {
+                    type: 'line',
+                    style: {
                     stroke: '#A3B1BF',
-                  },
+                    },
                 },
             });
             // const {
@@ -115,6 +120,10 @@ export default {
             if (data) {
                 this.graph.read(data);
             }
+        },
+        reflash(editor,command,twidth){
+            this.graph.destroy()
+            this.init(editor,command,twidth)
         }
     }
 };

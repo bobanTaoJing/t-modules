@@ -1,6 +1,6 @@
 
 import Util from '@antv/g6/src/util'
-import eventBus from "@/components/g6-editor/utils/eventBus";
+import eventBus from "../../../components/g6-editor/utils/eventBus";
 export default {
     getEvents() {
         return {

@@ -1,7 +1,7 @@
 import G6 from "@antv/g6/build/g6";
-import { uniqueId } from '@/components/g6-editor/utils'
-import openSvg from '@/components/g6-editor/assets/icons/open.svg'
-import closeSvg from '@/components/g6-editor/assets/icons/close.svg'
+import { uniqueId } from '../../../../components/g6-editor/utils'
+import openSvg from '../../../../components/g6-editor/assets/icons/open.svg'
+import closeSvg from '../../../../components/g6-editor/assets/icons/close.svg'
 const teamNode = {
   init() {
     G6.registerNode("teamNode", {

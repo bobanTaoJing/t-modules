@@ -5,7 +5,8 @@ import editTableExample from './iview/editTableExample'
 import tasknodeExample from './iview/tasknodeExample'
 import chartSvgExample from './self/chartSvgExample'
 import numberUpExample from './iview/numberUpExample'
-import sqlConfigExample from './iview/sqlConfigExample'
+// import sqlConfigExample from './iview/sqlConfigExample'
+import flowchartExample from './iview/flowchartExample'
 // import ChartLineExample from './echarts/ChartLineExample'
 // import ChartBarExample from './echarts/ChartBarExample'
 // import ChartPieExample from './echarts/ChartPieExample'
@@ -13,6 +14,6 @@ import sqlConfigExample from './iview/sqlConfigExample'
 
 
 export {
-    tTableExample,crudViewExample,formDynamicExample,editTableExample,tasknodeExample,chartSvgExample,numberUpExample,sqlConfigExample
+    tTableExample,crudViewExample,formDynamicExample,editTableExample,tasknodeExample,chartSvgExample,numberUpExample,flowchartExample
     // ChartLineExample,ChartBarExample,ChartPieExample
 }

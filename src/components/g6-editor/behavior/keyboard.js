@@ -1,4 +1,4 @@
-import eventBus from "@/components/g6-editor/utils/eventBus";
+import eventBus from "../../../components/g6-editor/utils/eventBus";
 export default {
     getDefaultCfg() {
         return {
@@ -18,6 +18,7 @@ export default {
         switch (code) {
             case this.deleteKeyCode:
             case this.backKeyCode:
+                if(e.target.localName!='input')
                 eventBus.$emit('deleteItem')
                 break
         }

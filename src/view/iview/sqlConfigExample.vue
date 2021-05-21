@@ -10,7 +10,7 @@
 <script>
 import exampleLout from '../exampleLout'
 import sqlConfig from '@/components/sqlConfig/index';
-import {crudViewData} from '../devTool/defaultData/index'
+import {sqlConfigData} from '../devTool/defaultData/index'
 export default {
     name: 'sqlConfigExample',
     components: {
@@ -24,13 +24,13 @@ export default {
         }
     },
     created() {
-        let obj = eval(`(()=>{${crudViewData.data}\n return data})()`)
+        let obj = eval(`(()=>{${sqlConfigData.data}\n return data})()`)
         this.tableOptions = obj.tableOptions
     },
     mounted() {
         this.$refs.exampleLout.inCome({
-            htmlCode:crudViewData.template,
-            dataString:crudViewData.data
+            htmlCode:sqlConfigData.template,
+            dataString:sqlConfigData.data
         })
     },
     methods: {

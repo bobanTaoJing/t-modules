@@ -11,7 +11,7 @@ import './theme/index.less'
 import { Button,Select,Option,Cell, Table,Form,FormItem,Row,Col,
   Icon,Poptip,Checkbox,CheckboxGroup,Input,Page,Modal,Dropdown,DropdownMenu,Tree,Switch,
   Tabs,TabPane,Split,TimePicker,InputNumber,DatePicker,Radio,RadioGroup,Card,Upload
-  ,Message,Spin } from 'view-design';
+  ,Message,Spin,Collapse,Panel } from 'view-design';
 import 'view-design/dist/styles/iview.css'
 Vue.component('Button', Button);
 Vue.component('i-button', Button);
@@ -44,12 +44,14 @@ Vue.component('Tabs', Tabs);
 Vue.component('TabPane', TabPane);
 Vue.component('Split', Split);
 Vue.component('TimePicker', TimePicker);
-Vue.component('input-number', InputNumber);
+Vue.component('InputNumber', InputNumber);
 Vue.component('DatePicker', DatePicker);
 Vue.component('Radio', Radio);
 Vue.component('RadioGroup', RadioGroup);
 Vue.component('Card', Card);
 Vue.component('Upload', Upload);
+Vue.component('Collapse', Collapse);
+Vue.component('Panel', Panel);
 
 Vue.prototype.$Message=Message
 

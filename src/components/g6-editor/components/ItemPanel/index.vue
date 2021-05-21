@@ -1,18 +1,26 @@
 <template>
-  <div class="itempannel">
-    <Item />
+  <div class="itempannel" :style="close?'width:0px':''">
+    <div class="closeBtn" @click="close=!close,close?$emit('reflashPage',close):$emit('reflashPage',close)">
+      <Icon v-if="!close" type="md-arrow-round-back" />
+      <Icon v-if="close" type="md-arrow-round-forward" />
+    </div>
+    <div v-if="!close" style="height:100%;overflow:auto">
+      <Item :ip="ip" :headers="headers"/>
+    </div>
   </div>
 </template>
 
 <script>
 import Item from "./item";
-import eventBus from "@/components/g6-editor/utils/eventBus";
+import eventBus from "../../../../components/g6-editor/utils/eventBus";
 export default {
+  props:['ip','headers'],
   components: { Item },
   data() {
     return {
       page: null,
-      command:null
+      command:null,
+      close:false
     };
   },
   created() {
@@ -29,6 +37,14 @@ export default {
 </script>
 
 <style scoped>
+.closeBtn{
+  position:absolute;right:-20px;font-size:20px;background:#fff;
+  cursor: pointer;
+}
+.closeBtn:hover{
+  background: #6591c7;
+  color:#fff;
+}
 .itempannel {
   height: 100%;
   position: absolute;
@@ -38,6 +54,7 @@ export default {
   width: 200px;
   padding-top: 8px;
   border-right: 1px solid #e6e9ed;
+  /* overflow:auto; */
 }
 .itempannel ul {
   padding: 0px;

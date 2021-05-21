@@ -5,16 +5,17 @@ import axios from './utils/http'
   import FormDynamic from './components/form/FormDynamic'
   import NumberUp from './components/count/NumberUp'
   import ChartSvg from './components/charts/svg'
-  import SqlConfig from './components/sqlConfig/index'
-  // import ChartBar from './components/charts/bar'
-  // import ChartLine from './components/charts/line'
-  // import ChartPie from './components/charts/pie'
+  // import SqlConfig from './components/sqlConfig/index'
+  import Flowchart from './components/rhpt/flowchart/newIndex.vue'
+  import ChartBar from './components/charts/bar'
+  import ChartLine from './components/charts/line'
+  import ChartPie from './components/charts/pie'
 
   import './theme/index.less'
 
 // 导出模块
 let components = [
-  tTable,CrudView,FormDynamic,NumberUp,ChartSvg,SqlConfig
+  tTable,CrudView,FormDynamic,NumberUp,ChartSvg,Flowchart,ChartBar,ChartLine,ChartPie
 ]
 
 const install = function(Vue) {

@@ -1,8 +1,8 @@
 import G6 from "@antv/g6/build/g6";
-import { uniqueId,fittingString } from '@/components/g6-editor/utils'
+import { uniqueId,fittingString } from '../../../../components/g6-editor/utils'
 import Shape from '@antv/g/src/shapes'
-const textColor = '#565758'
-const textHoverColor = '#fff'
+// let textColor = '#565758'
+// let textHoverColor = '#565758'
 const customNode = {
   init() {
     G6.registerNode("customNode", {
@@ -18,6 +18,8 @@ const customNode = {
         if(cfg.nodeType=='table'&&cfg.objects)
           height+=cfg.objects.length*25
         const color = cfg.color;
+        let textColor = cfg.error?'red':'#565758'
+        let textHoverColor = cfg.error?'red':'#565758'
         // 此处必须有偏移 不然drag-node错位
         const offsetX = -width / 2
         const offsetY = -height / 2
@@ -30,8 +32,8 @@ const customNode = {
             y: cfg.nodeType=='circle'?offsetY+width/2:offsetY,
             width: width,
             height: height,
-            stroke: color,
-            fill: color,//此处必须有fill 不然不能触发事件
+            stroke: '#1890ff',
+            fill: '#ddd',//此处必须有fill 不然不能触发事件
             radius: 4,
             r:width/2,
             opacity:.3,
@@ -175,15 +177,44 @@ const customNode = {
               attrs: {
                 id: 'label' + uniqueId(),
                 x: offsetX + width/2,
-                y: offsetY + height/2,
+                y: offsetY + height/2 + 10,
                 textAlign: "center",
                 textBaseline: "middle",
-                text: cfg.label,
+                text: fittingString(cfg.label,50,16),
                 parent: mainId,
                 fill: textColor
               }
             });
           }
+          let imgIp= window.location.origin+window.location.pathname
+          if(cfg.insert_data.type=='SOURCE'||cfg.insert_data.type=='SINK'||cfg.insert_data.type=='OPERATION'
+            ||cfg.insert_data.type=='UNION'||cfg.insert_data.type=='JOIN'){
+            group.addShape("image", {
+              attrs: {
+                id: 'imageIcon' + uniqueId(),
+                x: offsetX + width/2 - 10 +(cfg.insert_data.type=='SINK'?5:0),
+                y: offsetY + 60,
+                width: cfg.insert_data.type=='SINK'?12:15,
+                height: cfg.insert_data.type=='SINK'?12:15,
+                img: imgIp+'/img/stream/'+cfg.insert_data.type+'.png',
+                parent: mainId,
+              }
+            });
+          }
+          let imgIndex = parseInt(Math.random()*16) - 1
+          let imgNames = ['dm','file','http','kafka','kb','mysql','oracle','postgres','redis']
+          let icon = cfg.icon?cfg.icon:'404'
+          group.addShape("image", {
+            attrs: {
+              id: 'imageIcon' + uniqueId(),
+              x: offsetX + width/2 - 13,
+              y: offsetY + 10,
+              width: 26,
+              height: 26,
+              img: imgIp+'/img/stream/'+icon+'.png',
+              parent: mainId,
+            }
+          });
           if (cfg.inPoints) {
             for (let i = 0; i < cfg.inPoints.length; i++) {
               const id = 'circle' + uniqueId()
@@ -403,9 +434,9 @@ const customNode = {
           // children.forEach(child => {
           //   child.attr("cursor", "move");
           // });
-          texts.forEach(text => {
-            text.attr('fill', textHoverColor)
-          })
+          // texts.forEach(text => {
+          //   text.attr('fill', textHoverColor)
+          // })
           circles.forEach(circle => {
             circle.attr('opacity', 1)
           })
@@ -413,9 +444,9 @@ const customNode = {
         const unSelectStyles = () => {
           // shape.attr("fill", color);
           // shape.attr("stroke", "#ced4d9");
-          texts.forEach(text => {
-            text.attr('fill', textColor)
-          })
+          // texts.forEach(text => {
+          //   text.attr('fill', textColor)
+          // })
           shape.attr("opacity", .3);
           circles.forEach(circle => {
             circle.attr('opacity', 0)

@@ -1,4 +1,4 @@
-import { uniqueId } from '@/components/g6-editor/utils'
+import { uniqueId } from '../../../components/g6-editor/utils'
 class command {
     editor = null;
     undoList = []

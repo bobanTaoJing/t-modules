@@ -1,5 +1,5 @@
-import { uniqueId } from '@/components/g6-editor/utils';
-import eventBus from "@/components/g6-editor/utils/eventBus";
+import { uniqueId } from '../../../../components/g6-editor/utils';
+import eventBus from "../../../../components/g6-editor/utils/eventBus";
 
 export default class Editor {
   constructor() {

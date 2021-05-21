@@ -23,6 +23,18 @@ const http = axios
 //         return Promise.reject(error)
 //     }
 // )
+http.apiPostJson = function(url, data, config) {
+  return new Promise((resolve, reject) => {
+    // data = querystring.stringify(data);
+    axios.post(url, data, config).then((response) => {
+      resolve(response.data);
+    }).catch((response) => {
+      // console.log(response);
+      resolve(response);
+      timeoutMsg();
+    });
+  });
+}
 http.apiGet = function(url, data) {
     return new Promise((resolve, reject) => {
       axios.get(url, data).then((response) => {

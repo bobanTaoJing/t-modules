@@ -314,7 +314,9 @@ export default {
                 }
                 this.$http.apiPost(this.tableOptions.deleteUrl, {
                     ids: ids.toString()
-                }).then((res) => {
+                },{
+                        headers:this.tableOptions.headers
+                    }).then((res) => {
                     this.loading = false;
                     if (!res.success) {
                         this.$http.handleError(res);

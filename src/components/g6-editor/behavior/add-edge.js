@@ -1,12 +1,20 @@
 
-import eventBus from "@/components/g6-editor/utils/eventBus";
-import { uniqueId } from '@/components/g6-editor/utils'
+import eventBus from "../../../components/g6-editor/utils/eventBus";
+import { uniqueId } from '../../../components/g6-editor/utils'
+import {Message} from 'view-design';
+import http from '../../../utils/http.js'
 let startPoint = null
 let startItem = null
 let endPoint = {}
 let activeItem = null
 let curInPoint = null
+let ip = ''
+let headers = {}
 export default {
+    setIP(obj){
+        ip = obj.ip
+        headers = obj.headers
+    },
     getEvents() {
         return {
             mousemove: 'onMousemove',
@@ -16,6 +24,7 @@ export default {
         };
     },
     onMouseup(e) {
+        console.log(e)
         const item = e.item
         if (item && item.getType() === 'node') {
             const group = item.getContainer()
@@ -45,19 +54,72 @@ export default {
                 endPoint = { x: endX, y: endY };
                 if (this.edge) {
                     this.graph.removeItem(this.edge);
+                    let id = 'edge' + (parseInt(uniqueId())+1)
                     const model = {
-                        id: 'edge' + uniqueId(),
+                        id,
                         source: startItem,
                         target: item,
                         sourceId: startItem._cfg.id,
                         targetId: item._cfg.id,
                         start: startPoint,
                         end: endPoint,
+                        connectName:'验证中',
                         shape: 'customEdge',
                         type: 'edge'
                     }
-                    console.log(model)
+                    let bcStartItem = startItem
                     eventBus.$emit('addItem', model)
+                    let sourceItem = startItem._cfg.model.insert_data
+                    let targetItem = item._cfg.model.insert_data
+                    let params = {
+                        source:{
+                            key:sourceItem.key,
+                            isAutoLoadSchema:sourceItem.isAutoLoadSchema,
+                            schema:sourceItem.schema,
+                        },
+                        target:{
+                            key:targetItem.key,
+                            isAutoLoadSchema:targetItem.isAutoLoadSchema,
+                            schema:targetItem.schema,
+                        }
+                    }
+                    http.apiPostJson(ip+'/job/stream/node/config/verify/connect',params,{headers})
+                        .then(res=>{
+                            if(res.success){
+                                this.graph.find("edge", edge => {
+                                    console.log(edge._cfg.id)
+                                    console.log(id)
+                                    if(edge._cfg.id == id){
+                                        this.graph.removeItem(edge)
+                                    }
+                                })
+                                const model = {
+                                    id,
+                                    source: bcStartItem,
+                                    target: item,
+                                    sourceId: bcStartItem._cfg.id,
+                                    targetId: item._cfg.id,
+                                    start: startPoint,
+                                    end: endPoint,
+                                    connectName:res.data.connectName,
+                                    shape: 'customEdge',
+                                    type: 'edge'
+                                }
+                                eventBus.$emit('addItem', model)
+                            }else{
+                                this.graph.find("edge", edge => {
+                                    console.log(edge._cfg.id)
+                                    console.log(id)
+                                    if(edge._cfg.id == id){
+                                        this.graph.removeItem(edge)
+                                    }
+                                })
+                                Message.error({
+                                    content:res.message,
+                                    duration:3
+                                })
+                            }
+                        })
                 }
             } else {
                 if (this.edge)
@@ -140,6 +202,7 @@ export default {
     },
     //判断可连接的点
     showInports(sourceId1,targetId1){
+        console.log('判断')
         let can=true
         this.graph.find("edge", edge => {
             let sourceId = edge._cfg.source._cfg.id
@@ -148,6 +211,7 @@ export default {
             if(sourceId1==targetId&&targetId1==sourceId) can = false
         })
         if(sourceId1==targetId1) can = false
+        
         return can
     },
     onMouseover(e) {

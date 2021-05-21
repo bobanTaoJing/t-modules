@@ -1,0 +1,23 @@
+类型    icon值
+dm	dm
+file	file
+http	http
+kafka	kafka
+kb	kb
+mysql	mysql
+oracle	oracle
+postgres	postgres
+redis	redis
+
+字符串	string
+求和	add
+转换	convert
+扁平转换	convert2
+控制台	console
+分组	fenzu
+最大值	max
+最小值	min
+
+通用输入节点	enter
+通用输出节点	out
+通用操作节点	action

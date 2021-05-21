@@ -995,7 +995,24 @@ let chartMapData = {
     }`
 }
 
+let sqlConfigData = {
+    template:`<sqlConfig :ipMenhu="'http://data-platform-demo.bobandata.com'" :ipWuhan="'http://data-platform-demo.bobandata.com'" :Authorization="'7466a7a478fd89afdc79b13cf875500a'">
+    </sqlConfig>`,
+    data:`let data=''`
+}
+
+let flowchartData = {
+    template:`<Flowchart :ip="data.ip" :headers="data.headers">
+    </Flowchart>`,
+    data:`let data={
+        ip:'http://portal-test2.bobandata.com',
+        headers:{
+        Authorization: 'ddcae3deb414af8bb6ef9bf52f1b4624'
+        }
+    }`
+}
+
 export {
     tTableData,crudViewData,formDynamicData,editTableData,vsNodeData,chartSvgData,numberUpData,chartLineData,
-    chartBarData,chartPieData,chartMapData
+    chartBarData,chartPieData,chartMapData,sqlConfigData,flowchartData
 }

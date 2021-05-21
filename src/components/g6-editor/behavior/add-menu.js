@@ -1,4 +1,4 @@
-import eventBus from "@/components/g6-editor/utils/eventBus";
+import eventBus from "../../../components/g6-editor/utils/eventBus";
 export default {
     getEvents() {
         return {

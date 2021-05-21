@@ -18,8 +18,10 @@ export default {
   },
   defaultEdge: {
     shape: 'line',
-    style: {},
-    size: 1,
+    style: {
+      lineWidth:10
+    },
+    size: 10,
     color: '#333'
   },
   nodeLabel: {

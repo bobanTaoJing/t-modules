@@ -33,7 +33,16 @@ export default {
         }
     },
     created(){
-        axios.defaults.headers['Authorization'] = this.Authorization
+        // axios.defaults.headers['Authorization'] = this.Authorization
+        // this.$http.apiPost(ipMenhu+'/admin/api/auth/login',{
+        //     username:'admin',
+        //     password:'123456'
+        // })
+        // .then(res=>{
+        //     if(res.success){
+
+        //     }
+        // })
     },
     mounted(){
         window.addEventListener('resize',this.getHeight)

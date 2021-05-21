@@ -8,6 +8,8 @@ import keyboard from './keyboard'
 import mulitSelect from './mulit-select'
 import addMenu from './add-menu'
 
+import selectNode2 from './select-node2'
+
 const behavors = {
     'hover-node': hoverNode,
     'add-edge': addLine,
@@ -16,10 +18,12 @@ const behavors = {
     'hover-edge': hoverEdge,
     'keyboard':keyboard,
     'mulit-select':mulitSelect,
-    'add-menu':addMenu
+    'add-menu':addMenu,
+    'select-node2':selectNode2
 }
 
-export function initBehavors() {
+export function initBehavors(obj) {
+    addLine.setIP(obj)
     for (let key in behavors) {
         G6.registerBehavior(key, behavors[key])
     }

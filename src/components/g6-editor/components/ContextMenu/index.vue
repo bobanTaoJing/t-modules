@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import eventBus from "@/components/g6-editor/utils/eventBus";
+import eventBus from "../../../../components/g6-editor/utils/eventBus";
 export default {
   data() {
     return {
@@ -26,6 +26,7 @@ export default {
     init() {},
     bindEvent() {
       eventBus.$on("contextmenuClick", e => {
+        return
         const menu = this.$refs.contextMenu;
         menu.style.left = e.clientX + "px";
         menu.style.top = e.clientY + "px";

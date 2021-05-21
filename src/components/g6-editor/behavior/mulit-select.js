@@ -1,6 +1,6 @@
 import Util from '@antv/g6/src/util'
-import eventBus from "@/components/g6-editor/utils/eventBus";
-import { uniqueId,getBox } from '@/components/g6-editor/utils'
+import eventBus from "../../../components/g6-editor/utils/eventBus";
+import { uniqueId,getBox } from '../../../components/g6-editor/utils'
 import config from '../global'
 export default {
     getDefaultCfg() {
