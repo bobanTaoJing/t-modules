@@ -136,7 +136,7 @@
                         </template>
                         <!--选择树-->
                         <template v-else-if="item.type==='treeSelect'">
-                            <TreeSelect v-model="fromData[item.name]" :data="item.data" :disabled="item.disabled" :param="item.param" :headers="item.headers?item.headers:headers" :valField="item.valField" :textField="item.textField" :lastStep="item.lastStep" :constructTree="item.constructTree" :dataUrl="item.dataUrl" :isAsync="item.isAsync" :expandAll="item.expandAll" :selectedTreeData="item.selectedTreeData" :leftTreeData="item.treeData" @on-change="(val)=>{if(item.onChange!=null){item.onChange(val,data,fromData,mData)}}">
+                            <TreeSelect v-model="fromData[item.name]" :data="item.data" :disabled="item.disabled" :param="item.param" :headers="item.headers?item.headers:headers" :valField="item.valField" :textField="item.textField" :lastStep="item.lastStep" :onlyShowLevel1="item.onlyShowLevel1" :constructTree="item.constructTree" :dataUrl="item.dataUrl" :isAsync="item.isAsync" :expandAll="item.expandAll" :selectedTreeData="item.selectedTreeData" :leftTreeData="item.treeData" @on-change="(val)=>{if(item.onChange!=null){item.onChange(val,data,fromData,mData)}}">
                             </TreeSelect>
                         </template>
                         <!--图片上传-->
@@ -154,6 +154,10 @@
                         <template v-else-if="item.type==='buttons'">
                             <Button style="margin-left: 5px" v-for="(option, optionIndex) in item.data" :key="'button'+index+'_'+optionIndex" :type="option.btnType" :shape="option.shape" :icon="option.icon" :size="item.size" @click="option.onClick(fromData)">{{option.label}}
                             </Button>
+                        </template>
+                        <template v-else-if="item.type==='colorPicker'">
+                            <ColorPicker type="text" v-model="fromData[item.name]">
+                            </ColorPicker>
                         </template>
 
                         <!--代码编辑器-->
@@ -217,6 +221,7 @@ import {
 import AceEditor from '../editor/AceEditor.vue'
 import easyCron from '../../../self_node_modules/vue-easy-cron/src/lib/easy-cron/input-cron'//cron生成器
 import VueQuillEditor from '../editor/vue-quill-editor'
+import CryptoJS from "crypto-js";
 
 export default {
     name:'FormDynamic',
@@ -495,6 +500,13 @@ export default {
                                     data[name] = data[name].Format(format);
                                 }
                             }
+                            if(obj.type == 'select'){
+                                if(obj.valueType == 'string'){
+                                    data[name] = data[name].toString()
+                                }else if(obj.valueType=='arrayString'){
+                                    data[name] = data[name].join(',')
+                                }
+                            }
                             if (obj.type == 'datetimerange') {
                                 if (data[name].length == 2 && data[name][0] instanceof Date && data[name][1] instanceof Date) {
                                     let format = obj.format || 'yyyy-MM-dd hh:mm:ss';
@@ -502,6 +514,11 @@ export default {
                                     arr.push(data[name][0].Format(format));
                                     arr.push(data[name][1].Format(format));
                                     data[name] = arr;
+                                }
+                            }
+                            if(obj.type=='text'){
+                                if(obj.crypto){
+                                  data[name] =  this.jiami(data[name],obj.aseKey)
                                 }
                             }
                         }
@@ -521,6 +538,25 @@ export default {
                     }
                 }
             });
+        },
+        //加密
+        jiami(message,aseKey='62666118'){
+            // var aseKey = "62666118"     //秘钥必须为：8/16/32位
+            // var message = "80018000142";
+            //加密
+            var encrypt = CryptoJS.AES.encrypt(message, CryptoJS.enc.Utf8.parse(aseKey), {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            }).toString();
+            return encrypt
+        },
+        //解密
+        jiemi(encrypt,aseKey='62666118'){
+            var decrypt = CryptoJS.AES.decrypt(encrypt, CryptoJS.enc.Utf8.parse(aseKey), {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+                }).toString(CryptoJS.enc.Utf8);
+                return decrypt
         },
         getData() {
             return this.fromData;
@@ -547,6 +583,12 @@ export default {
                         let d = new Date();
                         d.setFullYear(val);
                         val = d;
+                    }else if(this.mData[name].type=='text'){
+                        if(this.mData[name].crypto){
+                            if(val){
+                               val = this.jiemi(val,this.mData[name].aseKey)
+                            }
+                        }
                     }
                 }
                 if (this.keys.contains(name)) {

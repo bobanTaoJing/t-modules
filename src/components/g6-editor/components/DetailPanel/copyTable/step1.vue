@@ -32,7 +32,7 @@
 import columns from './columns'
 import Page from './page'
 import Editor from "../../../../../components/g6-editor/components/Base/Editor";
-import command from "../../../../../components/g6-editor/command";
+// import command from "../../../../../components/g6-editor/command";
 import eventBus from "../../../../../components/g6-editor/utils/eventBus";
 export default {
     props:['data'],

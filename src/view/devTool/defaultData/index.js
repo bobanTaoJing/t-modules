@@ -863,6 +863,70 @@ let chartSvgData = {
                 name:'admin',color:'',width:20,height:20
             },{
                 name:'oam',color:'',width:20,height:20
+            },{
+                name:'mysql',color:'',width:20,height:20
+            },{
+                name:'draggble',color:'',width:20,height:20
+            },{
+                name:'help',color:'',width:20,height:20
+            },{
+                name:'user',color:'',width:20,height:20
+            },{
+                name:'password',color:'',width:20,height:20
+            },{
+                name:'equipment',color:'',width:20,height:20
+            },{
+                name:'line',color:'',width:20,height:20
+            },{
+                name:'card',color:'',width:20,height:20
+            },{
+                name:'dataStream',color:'',width:20,height:20
+            },{
+                name:'nod',color:'',width:20,height:20
+            },{
+                name:'name',color:'',width:20,height:20
+            },{
+                name:'search',color:'',width:20,height:20
+            },{
+                name:'reflash',color:'',width:20,height:20
+            },{
+                name:'inspection',color:'',width:20,height:20
+            },{
+                name:'region',color:'',width:20,height:20
+            },{
+                name:'unit',color:'',width:20,height:20
+            },{
+                name:'file',color:'',width:20,height:20
+            },{
+                name:'basic',color:'',width:20,height:20
+            },{
+                name:'operationManagement',color:'',width:20,height:20
+            },{
+                name:'terminal',color:'',width:20,height:20
+            },{
+                name:'expand',color:'',width:20,height:20
+            },{
+                name:'packUp',color:'',width:20,height:20
+            },{
+                name:'powerUnit',color:'',width:20,height:20
+            },{
+                name:'fileManagement',color:'',width:20,height:20
+            },{
+                name:'caiji',color:'',width:20,height:20
+            },{
+                name:'xunshi',color:'',width:20,height:20
+            },{
+                name:'jingxiang',color:'',width:20,height:20
+            },{
+                name:'jiliangdian',color:'',width:20,height:20
+            },{
+                name:'filter',color:'',width:20,height:20
+            },{
+                name:'byq',color:'',width:20,height:20
+            },{
+                name:'gddw',color:'',width:20,height:20
+            },{
+                name:'page',color:'',width:20,height:20
             }
         ]
     }`

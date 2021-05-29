@@ -42,9 +42,16 @@
   import utils from '../../utils/common';
 
   export default {
+    name:'DataTree',
     props: {
       dataUrl: {},
       param: {},
+      headers:{
+        type:Object,
+        default:function(){
+          return{}
+        }
+      },
       showCheckbox: {
         type: Boolean,
         default: false
@@ -84,7 +91,7 @@
         }
         this.loading = true;
         param = Object.assign(param || {}, this.param);
-        this.$http.apiPost(this.dataUrl, param).then((res) => {
+        this.$http.apiPost(this.dataUrl, param,{headers:this.headers}).then((res) => {
           this.loading = false;
           if (!res.success) {
             this.$http.handleError(res);

@@ -125,7 +125,11 @@
         type:Boolean,
         default: false
       },
-      headers:{}
+      headers:{},
+      onlyShowLevel1:{
+        type:Boolean,
+        default:false
+      }
     },
     data () {
       return {
@@ -145,16 +149,27 @@
           if(this.isAsync)
             return this.asyncData
           else{
-            if(this.expandAll){
               let data = this.data == null ? this.tData : this.data
+              if(this.onlyShowLevel1){
+                data =this.handlerSelcet(data)
+              }
+            if(this.expandAll){
               return this.setTreeExpand(data)
             }else
-              return this.data == null ? this.tData : this.data;
+              return data
           }
         },
       },
     },
     methods: {
+      handlerSelcet(data){
+        if(data){
+          for(let a of data){
+            a.children = ''
+          }
+        }
+          return data
+      },
       flashTree(){
         this.reflashTree = false
         setTimeout(()=>{

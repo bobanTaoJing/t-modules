@@ -50,6 +50,7 @@
     <DataTree ref="tree"
               :param="treeOptions.param"
               :dataUrl="treeOptions.dataUrl"
+              :headers="treeOptions.headers"
               :expandAll="treeOptions.expandAll"
               @on-select="onTreeChange"
               @on-data-loaded="onTreeDataLoaded"

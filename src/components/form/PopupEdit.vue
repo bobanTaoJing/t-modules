@@ -31,6 +31,7 @@
          class="popup-edit-modal"
          :okText="okText"
          :width="width"
+         :styles="{top: '50px'}"
          :loading="loading"
          @on-ok="ok">
     <FormDynamic :data="dynamic"

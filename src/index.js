@@ -10,12 +10,13 @@ import axios from './utils/http'
   import ChartBar from './components/charts/bar'
   import ChartLine from './components/charts/line'
   import ChartPie from './components/charts/pie'
+  import DataTree from './components/tree/DataTree'
 
   import './theme/index.less'
 
 // 导出模块
 let components = [
-  tTable,CrudView,FormDynamic,NumberUp,ChartSvg,Flowchart,ChartBar,ChartLine,ChartPie
+  tTable,CrudView,FormDynamic,NumberUp,ChartSvg,Flowchart,ChartBar,ChartLine,ChartPie,DataTree
 ]
 
 const install = function(Vue) {

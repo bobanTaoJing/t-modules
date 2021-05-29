@@ -45,7 +45,7 @@ import Page from "../Page";
 import Flow from "../Flow"
 import ContextMenu from "../ContextMenu";
 import Editor from "../../../../components/g6-editor/components/Base/Editor";
-import command from "../../../../components/g6-editor/command";
+// import command from "../../../../components/g6-editor/command";
 export default {
   name: "G6Editor",
   components: {
