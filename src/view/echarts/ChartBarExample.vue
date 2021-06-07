@@ -60,7 +60,6 @@ export default {
         run(obj){
             this.reflash = false
             setTimeout(()=>{
-                this.reflash = true
                 this.text = obj.text
                 this.loading =  obj.loading
                 this.height = obj.height
@@ -68,6 +67,7 @@ export default {
                 this.textColor = obj.textColor
                 this.bgColor = obj.bgColor
                 this.disHover = obj.disHover
+                this.reflash = true
             },100)
         }
     },

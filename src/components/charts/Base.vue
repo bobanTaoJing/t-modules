@@ -18,15 +18,15 @@
 </template>
 
 <script>
-import * as echarts from 'echarts/lib/echarts'
+import echarts from 'echarts'
 
-import 'echarts/lib/chart/bar'
-import 'echarts/lib/chart/line'
-import 'echarts/lib/chart/lines'
-import 'echarts/lib/chart/pie'
-import 'echarts/lib/component/title'
-import 'echarts/lib/component/legend'
-import 'echarts/lib/component/tooltip'
+// import 'echarts/lib/chart/bar'
+// import 'echarts/lib/chart/line'
+// import 'echarts/lib/chart/lines'
+// import 'echarts/lib/chart/pie'
+// import 'echarts/lib/component/title'
+// import 'echarts/lib/component/legend'
+// import 'echarts/lib/component/tooltip'
 // import tdTheme from './theme.json'
 import {
     on,
@@ -104,9 +104,9 @@ export default {
                 //             }
                 //         }
                 //     }
-                if(this.dom){
-                    this.dom.dispose()
-                }
+                // if(this.dom){
+                //     this.dom.dispose()
+                // }
                 this.dom = echarts.init(this.$refs.dom,theme?theme:'default')
                 this.dom.setOption(option)
                 this.resize()

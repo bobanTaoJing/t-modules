@@ -1,12 +1,12 @@
 <template>
 <div>
-    <sBase ref="sBase" :loading="loading" :text="text" :height="height" :disHover="disHover" :option="option">
-    </sBase>
+    <Base ref="base" :loading="loading" :text="text" :height="height" :disHover="disHover" :option="option">
+    </Base>
 </div>
 </template>
 
 <script>
-import sBase from './Base'
+import Base from './Base'
 export default {
     name: 'ChartBar',
     props: {
@@ -224,19 +224,9 @@ export default {
                             color:this.textColor
                         },
                     },
-                    xAxis: {
-                        type: 'category',
-                        data: xData,
-                        axisLabel:{
-                            color:this.xAxisColor
-                        },
-                        splitLine:{
-                            lineStyle:{
-                                color:this.xAxisSplitColor
-                            }
-                        }
-                    },
-                    yAxis: {
+                    xAxis: {type: 'category',
+                        data: xData},
+                    yAxis: [{
                         type: 'value',
                         axisLabel:{
                             color:this.yAxisColor
@@ -246,12 +236,11 @@ export default {
                                 color:this.yAxisSplitColor
                             }
                         }
-                    },
+                    }],
                     series
                 }
-                console.log(this.option)
             }
-            this.$refs.sBase.init(this.theme)
+            this.$refs.base.init(this.theme)
         }
     },
     watch: {
@@ -266,7 +255,7 @@ export default {
         }
     },
     components: {
-        sBase
+        Base
     }
 }
 </script>

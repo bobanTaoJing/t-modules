@@ -54,7 +54,7 @@ export {default as NumberUp} from './count/NumberUp.vue';
 
 // export {default as ChartPie3} from './charts/pie3.vue';
 
-// export {default as ChartBar} from './charts/bar.vue';
+export {default as ChartBar} from './charts/bar.vue';
 
 // export {default as ChartLine} from './charts/line.vue';
 

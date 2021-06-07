@@ -8,12 +8,13 @@ import numberUpExample from './iview/numberUpExample'
 // import sqlConfigExample from './iview/sqlConfigExample'
 import flowchartExample from './iview/flowchartExample'
 // import ChartLineExample from './echarts/ChartLineExample'
-// import ChartBarExample from './echarts/ChartBarExample'
+import ChartBarExample from './echarts/ChartBarExample'
 // import ChartPieExample from './echarts/ChartPieExample'
 // import ChartMapExample from './echarts/ChartMapExample'
 
 
 export {
-    tTableExample,crudViewExample,formDynamicExample,editTableExample,tasknodeExample,chartSvgExample,numberUpExample,flowchartExample
+    tTableExample,crudViewExample,formDynamicExample,editTableExample,tasknodeExample,chartSvgExample,numberUpExample,flowchartExample,
+    ChartBarExample
     // ChartLineExample,ChartBarExample,ChartPieExample
 }
