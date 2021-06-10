@@ -43,7 +43,7 @@
       <i-input v-model="selectedText"
                :icon="visible?'arrow-up-b':'arrow-down-b'"
                :placeholder="placeholder" :disabled="disabled"
-               @on-click.stop="iconClick"
+               @click.native.stop="iconClick"
                @on-clear="$emit('on-change', null);$emit('input', null)"
                :clearable="clearable"
                :readonly="readonly">

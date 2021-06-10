@@ -11,10 +11,11 @@ import flowchartExample from './iview/flowchartExample'
 import ChartBarExample from './echarts/ChartBarExample'
 // import ChartPieExample from './echarts/ChartPieExample'
 // import ChartMapExample from './echarts/ChartMapExample'
+import ttreeExample from './self/ttreeExample'
 
 
 export {
     tTableExample,crudViewExample,formDynamicExample,editTableExample,tasknodeExample,chartSvgExample,numberUpExample,flowchartExample,
-    ChartBarExample
+    ChartBarExample,ttreeExample
     // ChartLineExample,ChartBarExample,ChartPieExample
 }

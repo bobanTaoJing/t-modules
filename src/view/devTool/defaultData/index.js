@@ -1075,8 +1075,32 @@ let flowchartData = {
         }
     }`
 }
+let ttreeData = {
+    template:`<ttree :data="data" @changeIndex="changeIndex"/>
+    <script>
+    changeIndex(index,item){
+        console.log(index)
+        console.log(item)
+
+    }
+    </script>`,
+    data:`let data={
+        data:[
+            {
+                name:'test',
+                treeId:1,
+                children:[
+                    {
+                        name:'test2',
+                        treeId:2
+                    }
+                ]
+            }
+        ]
+    }`
+}
 
 export {
     tTableData,crudViewData,formDynamicData,editTableData,vsNodeData,chartSvgData,numberUpData,chartLineData,
-    chartBarData,chartPieData,chartMapData,sqlConfigData,flowchartData
+    chartBarData,chartPieData,chartMapData,sqlConfigData,flowchartData,ttreeData
 }

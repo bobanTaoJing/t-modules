@@ -139,6 +139,11 @@
                             <TreeSelect v-model="fromData[item.name]" :data="item.data" :disabled="item.disabled" :param="item.param" :headers="item.headers?item.headers:headers" :valField="item.valField" :textField="item.textField" :lastStep="item.lastStep" :onlyShowLevel1="item.onlyShowLevel1" :constructTree="item.constructTree" :dataUrl="item.dataUrl" :isAsync="item.isAsync" :expandAll="item.expandAll" :selectedTreeData="item.selectedTreeData" :leftTreeData="item.treeData" @on-change="(val)=>{if(item.onChange!=null){item.onChange(val,data,fromData,mData)}}">
                             </TreeSelect>
                         </template>
+                        <!--选择树2-->
+                        <template v-else-if="item.type==='treeSelect2'">
+                            <TreeSelect2 v-model="fromData[item.name]" :data.sync="item.data" :disabled="item.disabled">
+                            </TreeSelect2>
+                        </template>
                         <!--图片上传-->
                         <template v-else-if="item.type==='imgUpload'">
                             <ImgUpload v-model="fromData[item.name]" :data="item.data" :param="item.param" :max="item.max" :uploadFormat="item.uploadFormat" :disabled="item.disabled" :dataUrl="item.dataUrl">
@@ -222,6 +227,7 @@ import AceEditor from '../editor/AceEditor.vue'
 import easyCron from '../../../self_node_modules/vue-easy-cron/src/lib/easy-cron/input-cron'//cron生成器
 import VueQuillEditor from '../editor/vue-quill-editor'
 import CryptoJS from "crypto-js";
+import TreeSelect2 from './TreeSelect2.vue'
 
 export default {
     name:'FormDynamic',
@@ -654,7 +660,7 @@ export default {
         TreeSelect,
         DataSelect,
         ImgUpload,
-        FormEditor,AceEditor,VueQuillEditor,easyCron
+        FormEditor,AceEditor,VueQuillEditor,easyCron,TreeSelect2
     }
 };
 </script>
