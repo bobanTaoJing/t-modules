@@ -1,6 +1,6 @@
 <template>
-    <ttree v-if="showTree" ref="ttree" :data.sync="data" :draggable="draggable" :showIcon="showIcon" @hdragstart="hdragstart" @hdragover="hdragover" @hdragend="hdragend" @hdragleave="hdragleave"
-     :checkIndex.sync="checkIndex" @changeIndex="changeIndex" @reflashTree="reflashTree"></ttree>
+    <ttree v-if="showTree" ref="ttree" :data.sync="data" :draggable="draggable" :showIcon="showIcon" :selectQx="selectQx" @hdragstart="hdragstart" @hdragover="hdragover" @hdragend="hdragend" @hdragleave="hdragleave"
+     :checkIndex.sync="checkIndex" @changeIndex="changeIndex" @chengeExpand="chengeExpand" @reflashTree="reflashTree"></ttree>
 </template>
 <script>
 import ttree from './index'
@@ -15,6 +15,10 @@ export default {
             default:false
         },
         showIcon:{
+            type:Boolean,
+            default:false
+        },
+        selectQx:{//是否选中 再次点击取消选中
             type:Boolean,
             default:false
         }
@@ -60,8 +64,11 @@ export default {
                 this.lastOver.target.className = 'tree-item-p tree-draggable'
             }
         },
-        changeIndex(checkIndex,item){
-            this.$emit('changeIndex',checkIndex,item)
+        changeIndex(checkIndex,item,level){
+            this.$emit('changeIndex',checkIndex,item,level)
+        },
+        chengeExpand(index,expand,item,level){
+            this.$emit('chengeExpand',expand,item,level)
         },
         reflashTree(){
             // this.showTree = false

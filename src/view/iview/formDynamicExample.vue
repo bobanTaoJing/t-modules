@@ -1,7 +1,7 @@
 <template>
     <exampleLout ref="exampleLout" @run="run">
         <template slot="right">
-            <FormDynamic ref='formDynamic' style="padding:10px" :data="dynamic" :label-width="100">
+            <FormDynamic v-if="reflash" ref='formDynamic' style="padding:10px" :data="dynamic" :label-width="100">
                 <template slot="append">
                 </template>
             </FormDynamic>
@@ -59,8 +59,8 @@ export default {
         run(obj){
             this.reflash = false
             setTimeout(()=>{
-                this.reflash = true
                 this.dynamic = obj.dynamic
+                this.reflash = true
             },100)
         },
         purin(){

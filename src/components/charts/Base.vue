@@ -63,6 +63,10 @@ export default {
         loading:{
             type:Boolean,
             default:false
+        },
+        mapData:{
+            type:Object,
+            default:()=>{return {}}
         }
     },
     data() {
@@ -84,6 +88,9 @@ export default {
             this.dom.resize()
         },
         init(theme) {
+            if(this.mapData&&this.mapData.name){
+                 echarts.registerMap(this.mapData.name, this.mapData.data);
+            }
             this.fcolor1 = this.getColor()[0]
             this.fcolor2 = this.getColor()[1]
             this.$nextTick(() => {

@@ -10,6 +10,10 @@
   import CountUpC from 'countup';
 
   function transformValue (val) {
+    return {
+      val,
+      unit: ''
+    }
     let endVal = 0;
     let unit = '';
     if (val < 1000) {

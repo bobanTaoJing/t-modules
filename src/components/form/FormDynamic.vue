@@ -86,27 +86,31 @@
                         </template>
                         <!--时间选择器-->
                         <template v-else-if="item.type==='time'">
-                            <TimePicker transfer type="time" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
+                            <TimePicker transfer type="time" :disabled="item.disabled" @on-change="(val)=>{item.onChange?item.onChange(val):''}" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
                             </TimePicker>
                         </template>
                         <!--日期选择器-->
                         <template v-else-if="item.type==='year'">
-                            <DatePicker transfer style="width:100%" type="year" format="yyyy" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
+                            <DatePicker transfer style="width:100%" type="year" format="yyyy" @on-change="(val)=>{item.onChange?item.onChange(val):''}" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
                             </DatePicker>
                         </template>
                         <!--日期选择器-->
                         <template v-else-if="item.type==='date'">
-                            <DatePicker transfer style="width:100%" type="date" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
+                            <DatePicker transfer style="width:100%" type="date" @on-change="(val)=>{item.onChange?item.onChange(val):''}" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
                             </DatePicker>
                         </template>
                         <!--日期选择器 yyyy-MM-dd HH:mm:ss-->
                         <template v-else-if="item.type==='datetime'">
-                            <DatePicker transfer style="width:100%" type="datetime" format="yyyy-MM-dd HH:mm:ss" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
+                            <DatePicker transfer style="width:100%" type="datetime" @on-change="(val)=>{item.onChange?item.onChange(val):''}" format="yyyy-MM-dd HH:mm:ss" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
                             </DatePicker>
                         </template>
                         <!--日期选择器 yyyy-MM-dd HH:mm:ss-->
                         <template v-else-if="item.type==='datetimerange'">
-                            <DatePicker transfer style="width:100%" type="datetimerange" :format="item.format || 'yyyy-MM-dd HH:mm:ss'" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
+                            <DatePicker transfer style="width:100%" type="datetimerange" @on-change="(val)=>{item.onChange?item.onChange(val):''}" :format="item.format || 'yyyy-MM-dd HH:mm:ss'" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
+                            </DatePicker>
+                        </template>
+                        <template v-else-if="item.type==='month'">
+                            <DatePicker transfer style="width:100%" type="month" @on-change="(val)=>{item.onChange?item.onChange(val):''}" :format="item.format || 'yyyy-MM'" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
                             </DatePicker>
                         </template>
                         <!--多选框-->
@@ -143,6 +147,12 @@
                         <template v-else-if="item.type==='treeSelect2'">
                             <TreeSelect2 v-model="fromData[item.name]" :data.sync="item.data" :disabled="item.disabled">
                             </TreeSelect2>
+                        </template>
+                        <template v-else-if="item.type==='inputSelect'">
+                            <inputSelect v-model="fromData[item.name]" :value.sync="item.value" :valField="item.valField" :textField="item.textField" :dataUrl="item.dataUrl"
+                                         :pageIndexField="item.pageIndexField" :pageSizeField="item.pageSizeField" :dataUrlType="item.dataUrlType" :headers="item.headers"
+                                          :resFun="item.resFun" :paramStr="item.paramStr">
+                            </inputSelect>
                         </template>
                         <!--图片上传-->
                         <template v-else-if="item.type==='imgUpload'">
@@ -228,6 +238,7 @@ import easyCron from '../../../self_node_modules/vue-easy-cron/src/lib/easy-cron
 import VueQuillEditor from '../editor/vue-quill-editor'
 import CryptoJS from "crypto-js";
 import TreeSelect2 from './TreeSelect2.vue'
+import inputSelect from './InputSelect.vue'
 
 export default {
     name:'FormDynamic',
@@ -504,6 +515,9 @@ export default {
                                 } else if (obj.type == 'year') {
                                     let format = obj.format || 'yyyy';
                                     data[name] = data[name].Format(format);
+                                } else if (obj.type == 'month') {
+                                    let format = obj.format || 'yyyy-MM';
+                                    data[name] = data[name].Format(format);
                                 }
                             }
                             if(obj.type == 'select'){
@@ -660,7 +674,7 @@ export default {
         TreeSelect,
         DataSelect,
         ImgUpload,
-        FormEditor,AceEditor,VueQuillEditor,easyCron,TreeSelect2
+        FormEditor,AceEditor,VueQuillEditor,easyCron,TreeSelect2,inputSelect
     }
 };
 </script>

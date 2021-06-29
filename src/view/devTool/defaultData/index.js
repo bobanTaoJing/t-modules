@@ -543,6 +543,31 @@ let formDynamicData={
                     required: false
                 }
             },{
+                name:'data1',
+                type:'inputSelect',
+                span:12,
+                label:'输入框',
+                tiptext:'提示语',
+                dataUrl:'http://data-platform-demo.bobandata.com/dataservice/query/yc/getTerminalIdList',
+                dataUrlType:'get',
+                headers:{
+                  Authorization:'tIO7BShuUhun2f6q2CFe4mpubUeHztOORoc9Hm8CrT9+gX19MHjGLtAq1btcIqsM0nO0GEemQRalACYZpewpEh6d7kco2wxD/N1HtDSNEikIoCqdHdDX0NrsZKC+vQkFxvNyQ0h/PtNFy8FS3wNiWLE0IQ5dgLaLhZgqk/sYFLGhsA4sWHj9+YpsRGkSfMCfD9GRTfXBss1iSbixWkfx2A==',
+                  user:'TMR'
+                },
+                valField:'TERMINAL_ID',
+                textField:'TERMINAL_ID',
+                paramStr:'terminalId',
+                resFun:function(res){
+                    if(res.data.resultCode==='0')
+                    return {
+                        data:res.data.results,
+                        total:res.data.totalSize
+                    }
+                },
+                rules: {
+                    required: false
+                }
+            },{
                 name:'data2',
                 type:'number',
                 span:12,
@@ -653,6 +678,25 @@ let formDynamicData={
                         children:[
                             {title:'1-1',name:'1-1',id:2},
                             {title:'1-2',name:'1-2',id:3},
+                            ]
+                    }
+                    ],
+                rules: {
+                    required: false
+                }
+            },{
+                name:'data122',
+                type:'treeSelect2',
+                span:12,
+                label:'选择树',
+                data:[
+                    {
+                        name:'1',
+                        title:'1',
+                        treeId:1,
+                        children:[
+                            {title:'1-1',name:'1-1',treeId:2},
+                            {title:'1-2',name:'1-2',treeId:3},
                             ]
                     }
                     ],
