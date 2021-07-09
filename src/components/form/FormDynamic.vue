@@ -56,7 +56,7 @@
                       </div> -->
                       <!-- 输入框自动生成内容 -->
                       <template v-if="item.type==='text'&&item.autoCreate">
-                          <i-input class="noSuffix" style="width:calc(100% - 0px)" :type="getInputType(item)" v-model="fromData[item.name]" :placeholder="getPlaceholder(item)" :readonly="item.readonly" :disabled="item.disabled" @on-click="(val) =>{ if( item.onClick!==null){item.onClick(fromData,mData)}}" :autosize="item.textarea">
+                          <i-input class="noSuffix" style="width:calc(100% - 0px)" :type="getInputType(item)" v-model="fromData[item.name]" :placeholder="getPlaceholder(item)" :readonly="item.readonly" :disabled="item.disabled" @on-click="(val) =>{ if( item.onClick!==null){item.onClick(fromData,mData)}}" :autosize="item.textarea" @on-blur="$emit('onChange')">
                           </i-input>
                           <span @click="$emit('autoCreate',item)" title="自动生成" style="position:absolute;right:7px;top:4px;height:25px;background:#fff;cursor:pointer;padding-left:10px">
                               <!-- <img src="../../assets/img/auto.png" style="width:25px;vertical:middle" alt="" srcset=""> -->
@@ -64,58 +64,58 @@
                       </template>
                         <!--输入框-->
                         <template v-else-if="item.type==='text'&&!item.autoCreate&&(reflashIndex!==index||(reflashIndex===index&&reflashPassWord))">
-                            <i-input :type="getInputType(item)" v-model="fromData[item.name]" :placeholder="getPlaceholder(item)" :readonly="item.readonly" :disabled="item.disabled" :icon="item.icon" @on-click="(val) =>{ if( item.onClick!==null){item.onClick(fromData,mData)}}" :autosize="item.textarea">
+                            <i-input :type="getInputType(item)" v-model="fromData[item.name]" :placeholder="getPlaceholder(item)" :readonly="item.readonly" :disabled="item.disabled" :icon="item.icon" @on-click="(val) =>{ if( item.onClick!==null){item.onClick(fromData,mData)}}" :autosize="item.textarea" @on-blur="$emit('onChange')">
                                 <Icon style="cursor:pointer" @click="showPassWord(item,true,index)" v-show="item.password&&!item.showPassWord" type="md-eye" slot="suffix" />
                                 <Icon style="cursor:pointer" @click="showPassWord(item,false,index)" v-show="item.password&&item.showPassWord" type="md-eye-off" slot="suffix" />
                             </i-input>
                         </template>
                         <!--数字输入框-->
                         <template v-else-if="item.type==='number'">
-                            <input-number style="width:100%" v-model="fromData[item.name]" :readonly="item.readonly" :disabled="item.disabled" :icon="item.icon" :placeholder="getPlaceholder(item)" :max="item.max" :min="item.min" :editable="item.editable" :step="item.step||1" :precision="item.precision||0" @on-change="(val)=>{if(item.onChange!=null){item.onChange(val,fromData,mData)}}" :autosize="item.textarea">
+                            <input-number style="width:100%" v-model="fromData[item.name]" :readonly="item.readonly" :disabled="item.disabled" :icon="item.icon" :placeholder="getPlaceholder(item)" :max="item.max" :min="item.min" :editable="item.editable" :step="item.step||1" :precision="item.precision||0" @on-change="(val)=>{if(item.onChange!=null){item.onChange(val,fromData,mData)}}" :autosize="item.textarea" @on-blue="$emit('onChange')">
                             </input-number>
                         </template>
                         <!--选择框-->
                         <template v-else-if="item.type==='popText'">
-                            <i-input type="text" v-model="fromData[item.textField]" :placeholder="getPlaceholder(item)" :disabled="item.disabled" :readonly="item.readonly == undefined ? true : item.readonly" icon="ios-search" @on-click="(val) =>{ if( item.onClick!==null){item.onClick(fromData,mData)}}" :autosize="item.textarea">
+                            <i-input type="text" v-model="fromData[item.textField]" :placeholder="getPlaceholder(item)" :disabled="item.disabled" :readonly="item.readonly == undefined ? true : item.readonly" icon="ios-search" @on-click="(val) =>{ if( item.onClick!==null){item.onClick(fromData,mData)}}" :autosize="item.textarea" @on-blur="$emit('onChange')">
                             </i-input>
                         </template>
                         <!--选择框-->
                         <template v-else-if="item.type==='select'">
-                            <DataSelect v-model="fromData[item.name]" :data="item.data" :dict="item.dict" :param="item.param" :headers="item.headers?item.headers:headers" :disabled="item.disabled" :dataUrl="item.dataUrl" :valField="item.valField" :textField="item.textField" :clearable="item.clearable" :placeholder="getPlaceholder(item)" @on-change="(val)=>{$emit('changeSelect',item.name);if(item.onChange!=null){item.onChange(val,fromData,mData)}}" :multiple="item.multiple">
+                            <DataSelect v-model="fromData[item.name]" :data="item.data" :dict="item.dict" :param="item.param" :headers="item.headers?item.headers:headers" :disabled="item.disabled" :dataUrl="item.dataUrl" :valField="item.valField" :textField="item.textField" :clearable="item.clearable" :placeholder="getPlaceholder(item)" @on-change="(val)=>{$emit('onChange');$emit('changeSelect',item.name);if(item.onChange!=null){item.onChange(val,fromData,mData)}}" :multiple="item.multiple">
                             </DataSelect>
                         </template>
                         <!--时间选择器-->
                         <template v-else-if="item.type==='time'">
-                            <TimePicker transfer type="time" :disabled="item.disabled" @on-change="(val)=>{item.onChange?item.onChange(val):''}" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
+                            <TimePicker transfer type="time" :disabled="item.disabled" @on-change="(val)=>{$emit('onChange');item.onChange?item.onChange(val):''}" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
                             </TimePicker>
                         </template>
                         <!--日期选择器-->
                         <template v-else-if="item.type==='year'">
-                            <DatePicker transfer style="width:100%" type="year" format="yyyy" @on-change="(val)=>{item.onChange?item.onChange(val):''}" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
+                            <DatePicker transfer style="width:100%" type="year" format="yyyy" @on-change="(val)=>{$emit('onChange');item.onChange?item.onChange(val):''}" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
                             </DatePicker>
                         </template>
                         <!--日期选择器-->
                         <template v-else-if="item.type==='date'">
-                            <DatePicker transfer style="width:100%" type="date" @on-change="(val)=>{item.onChange?item.onChange(val):''}" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
+                            <DatePicker transfer style="width:100%" type="date" @on-change="(val)=>{$emit('onChange');item.onChange?item.onChange(val):''}" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
                             </DatePicker>
                         </template>
                         <!--日期选择器 yyyy-MM-dd HH:mm:ss-->
                         <template v-else-if="item.type==='datetime'">
-                            <DatePicker transfer style="width:100%" type="datetime" @on-change="(val)=>{item.onChange?item.onChange(val):''}" format="yyyy-MM-dd HH:mm:ss" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
+                            <DatePicker transfer style="width:100%" type="datetime" @on-change="(val)=>{$emit('onChange');item.onChange?item.onChange(val):''}" format="yyyy-MM-dd HH:mm:ss" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
                             </DatePicker>
                         </template>
                         <!--日期选择器 yyyy-MM-dd HH:mm:ss-->
                         <template v-else-if="item.type==='datetimerange'">
-                            <DatePicker transfer style="width:100%" type="datetimerange" @on-change="(val)=>{item.onChange?item.onChange(val):''}" :format="item.format || 'yyyy-MM-dd HH:mm:ss'" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
+                            <DatePicker transfer style="width:100%" type="datetimerange" @on-change="(val)=>{$emit('onChange');item.onChange?item.onChange(val):''}" :format="item.format || 'yyyy-MM-dd HH:mm:ss'" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
                             </DatePicker>
                         </template>
                         <template v-else-if="item.type==='month'">
-                            <DatePicker transfer style="width:100%" type="month" @on-change="(val)=>{item.onChange?item.onChange(val):''}" :format="item.format || 'yyyy-MM'" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
+                            <DatePicker transfer style="width:100%" type="month" @on-change="(val)=>{$emit('onChange');item.onChange?item.onChange(val):''}" :format="item.format || 'yyyy-MM'" :disabled="item.disabled" :placeholder="getPlaceholder(item)" v-model="fromData[item.name]">
                             </DatePicker>
                         </template>
                         <!--多选框-->
                         <template v-else-if="item.type==='checkbox'">
-                            <Checkbox v-if="item.enableCheckAll" :value="mData[item.name].checkAll" @click.prevent.native="handleCheckAll(item)">{{item.checkAllLabel}}
+                            <Checkbox v-if="item.enableCheckAll" :value="mData[item.name].checkAll" @click.prevent.native="handleCheckAll(item)" @on-change="(val)=>{$emit('onChange')}">{{item.checkAllLabel}}
                             </Checkbox>
                             <CheckboxGroup v-model="fromData[item.name]" @on-change="checkGroupChange($event,item)">
                                 <Checkbox v-for="(option, optionIndex) in item.data " :label="option.value" transfer :key="'checkbox'+index+'_'+optionIndex">
@@ -125,14 +125,14 @@
                         </template>
                         <!--开关选项-->
                         <template v-else-if="item.type==='switch'">
-                            <i-switch v-model="fromData[item.name]" size="large" :key="'switch'+index" :disabled="item.disabled" :trueValue="item.trueValue" @on-change="(val)=>{if(item.onChange!=null){item.onChange(val,fromData,mData)}}" :falseValue="item.falseValue">
+                            <i-switch v-model="fromData[item.name]" size="large" :key="'switch'+index" :disabled="item.disabled" :trueValue="item.trueValue" @on-change="(val)=>{$emit('onChange');if(item.onChange!=null){item.onChange(val,fromData,mData)}}" :falseValue="item.falseValue">
                                 <span slot="open">{{item.openText}}</span>
                                 <span slot="close">{{item.closeText}}</span>
                             </i-switch>
                         </template>
                         <!--单选框-->
                         <template v-else-if="item.type==='radio'">
-                            <RadioGroup v-model="fromData[item.name]" :type="item.button?'button':null" @on-change="(val)=>{if(item.onChange!=null){item.onChange(val,fromData,mData)}}">
+                            <RadioGroup v-model="fromData[item.name]" :type="item.button?'button':null" @on-change="(val)=>{$emit('onChange');if(item.onChange!=null){item.onChange(val,fromData,mData)}}">
                                 <Radio v-for="(option, optionIndex) in item.data" :key="'radio'+index+'_'+optionIndex" :label="option.value==null?optionIndex:option.value">
                                     {{option.label}}
                                 </Radio>
@@ -140,7 +140,7 @@
                         </template>
                         <!--选择树-->
                         <template v-else-if="item.type==='treeSelect'">
-                            <TreeSelect v-model="fromData[item.name]" :data="item.data" :disabled="item.disabled" :param="item.param" :headers="item.headers?item.headers:headers" :valField="item.valField" :textField="item.textField" :lastStep="item.lastStep" :onlyShowLevel1="item.onlyShowLevel1" :constructTree="item.constructTree" :dataUrl="item.dataUrl" :isAsync="item.isAsync" :expandAll="item.expandAll" :selectedTreeData="item.selectedTreeData" :leftTreeData="item.treeData" @on-change="(val)=>{if(item.onChange!=null){item.onChange(val,data,fromData,mData)}}">
+                            <TreeSelect v-model="fromData[item.name]" :data="item.data" :disabled="item.disabled" :param="item.param" :headers="item.headers?item.headers:headers" :valField="item.valField" :textField="item.textField" :lastStep="item.lastStep" :onlyShowLevel1="item.onlyShowLevel1" :constructTree="item.constructTree" :dataUrl="item.dataUrl" :isAsync="item.isAsync" :expandAll="item.expandAll" :selectedTreeData="item.selectedTreeData" :leftTreeData="item.treeData" @on-change="(val)=>{$emit('onChange');if(item.onChange!=null){item.onChange(val,data,fromData,mData)}}">
                             </TreeSelect>
                         </template>
                         <!--选择树2-->
@@ -184,6 +184,11 @@
                                 :language="item.language?item.language:'mysql'"/>
                         </template> -->
                         <!--代码编辑器2-->
+                        <template v-else-if="item.type==='codeForEditWeb'">
+                            <p>
+                                <Button @click="editName=item.name;codeJson=fromData[item.name];modal1=true">编辑</Button>
+                            </p>
+                        </template>
                         <template v-else-if="item.type==='codeEditor'||item.type==='aceCodeEditor'">
                             <AceEditor
                                 v-model="fromData[item.name]"
@@ -220,7 +225,20 @@
         </slot>
 
     </Row>
-
+    <tOverlay v-model="modal1" :title="'函数'">
+        <div slot="main" style="height:100%;color:rgb(81, 90, 110)">
+            <span>function(params,http,Message,bus,resolve){</span>
+            <AceEditor v-model="codeJson" :showAction="false" :height="'calc(100% - 50px)'" :language="'javascript'" />
+            <span>}</span>
+        </div>
+        <p slot="footer">
+            <Button @click="()=>{
+                this.$set(this.fromData,this.editName,this.codeJson)
+                this.$emit('onChange')
+                    this.modal1 = false
+                }">保存</Button>
+        </p>
+    </tOverlay>
 </i-form>
 </template>
 
@@ -239,6 +257,7 @@ import VueQuillEditor from '../editor/vue-quill-editor'
 import CryptoJS from "crypto-js";
 import TreeSelect2 from './TreeSelect2.vue'
 import inputSelect from './InputSelect.vue'
+import tOverlay from '../overlay/index'
 
 export default {
     name:'FormDynamic',
@@ -275,7 +294,10 @@ export default {
             showTip: '',
             linkageJudge: {},
             reflashPassWord:true,
-            reflashIndex:''
+            reflashIndex:'',
+            modal1:false,
+            editName:'',
+            codeJson:''
         };
     },
     computed: {
@@ -453,6 +475,7 @@ export default {
             item.onChange(item, this.mData, this.fromData);
         },
         checkGroupChange(event, item) {
+            this.$emit('onChange')
             let selected = event.length;
             let orign = this.mData[item.name].data.length;
             if (selected === orign) {
@@ -674,7 +697,7 @@ export default {
         TreeSelect,
         DataSelect,
         ImgUpload,
-        FormEditor,AceEditor,VueQuillEditor,easyCron,TreeSelect2,inputSelect
+        FormEditor,AceEditor,VueQuillEditor,easyCron,TreeSelect2,inputSelect,tOverlay
     }
 };
 </script>
